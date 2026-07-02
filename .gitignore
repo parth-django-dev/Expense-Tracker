@@ -96,3 +96,10 @@ venv.bak/
 # OS-specific files
 .DS_Store
 Thumbs.db
+
+# Explicit overrides requested
+.env
+__pycache__/
+*.pyc
+db.sqlite3
+staticfiles/
