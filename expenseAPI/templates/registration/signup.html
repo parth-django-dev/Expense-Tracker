@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | AgriMind Expense Tracker</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex items-center justify-center text-slate-800 p-4">
+
+    <div class="w-full max-w-md bg-white p-8 rounded-2xl border border-slate-200 shadow-xl">
+        <div class="text-center mb-8">
+            <span class="text-4xl">🚀</span>
+            <h1 class="text-2xl font-bold tracking-tight text-slate-900 mt-3">Get Started</h1>
+            <p class="text-slate-500 text-sm mt-1">Create a new account to track your expenses</p>
+        </div>
+
+        {% if form.non_field_errors %}
+            <div class="bg-rose-50 border border-rose-200 text-rose-700 p-4 rounded-xl mb-6 text-sm">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" class="space-y-5">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div>
+                    <label for="{{ field.id_for_label }}" class="block text-sm font-semibold text-slate-700 mb-1.5">{{ field.label }}</label>
+                    <input type="{% if 'password' in field.name %}password{% else %}text{% endif %}" 
+                           name="{{ field.name }}" 
+                           id="{{ field.id_for_label }}" 
+                           required
+                           class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm"
+                           placeholder="Enter {{ field.label|lower }}">
+                    {% if field.help_text %}
+                        <p class="text-xs text-slate-400 mt-1">{{ field.help_text }}</p>
+                    {% endif %}
+                    {% if field.errors %}
+                        <p class="text-xs text-rose-500 mt-1">{{ field.errors.as_text }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-xl transition-all shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                Register
+            </button>
+        </form>
+
+        <div class="mt-8 pt-6 border-t border-slate-100 text-center text-sm text-slate-500">
+            Already have an account? 
+            <a href="{% url 'login' %}" class="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">Sign in</a>
+        </div>
+    </div>
+
+</body>
+</html>

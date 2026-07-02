@@ -27,8 +27,13 @@
                 <span class="bg-indigo-50 text-indigo-700 px-4 py-2 rounded-full font-medium text-sm">
                     👤 Welcome, {{ request.user.username }}
                 </span>
-                <!-- Logout Link -->
-                <a href="/admin/logout/" class="text-sm font-semibold text-rose-600 hover:text-rose-700">Logout</a>
+                <!-- Logout Form -->
+                <form action="{% url 'logout' %}" method="post" class="inline">
+                    {% csrf_token %}
+                    <button type="submit" class="text-sm font-semibold text-rose-600 hover:text-rose-700 focus:outline-none">
+                        Logout
+                    </button>
+                </form>
             </div>
         </div>
 

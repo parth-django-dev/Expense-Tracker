@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 from django.utils import timezone
 from datetime import timedelta
 from django.db.models import Sum
@@ -68,3 +70,14 @@ def delete_expense(request, pk):
         expense.delete()
     
     return redirect('show_expenses')
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('show_expenses')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
