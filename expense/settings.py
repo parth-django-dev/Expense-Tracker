@@ -26,15 +26,13 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 ALLOWED_HOSTS = [
-    "expense-tracker-34c1ysi6r-parth-django-devs-projects.vercel.app",
-    "expense-tracker-three-snowy-30.vercel.app",
+    ".vercel.app",
     "localhost",
     "127.0.0.1",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://expense-tracker-34c1ysi6r-parth-django-devs-projects.vercel.app",
-    "https://expense-tracker-three-snowy-30.vercel.app",
+    "https://*.vercel.app",
 ]
 
 # Application definition
